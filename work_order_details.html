@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>COFFEEGADO Work Order Summary</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background-color: #2e1c17;
+      color: #ffffff;
+      padding: 40px;
+    }
+    h1 {
+      text-align: center;
+      color: #ffdd99;
+      margin-bottom: 40px;
+    }
+    h2 {
+      margin-top: 40px;
+      color: #ffc107;
+      border-bottom: 2px solid #ffdd99;
+      padding-bottom: 5px;
+    }
+    p {
+      margin: 4px 0;
+    }
+    .info-group {
+      margin-bottom: 20px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: rgba(255, 255, 255, 0.05);
+      margin-top: 15px;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      text-align: left;
+    }
+    th {
+      background-color: rgba(255, 255, 255, 0.08);
+    }
+    td:last-child, th:last-child {
+      text-align: right;
+    }
+    .total-row {
+      font-weight: bold;
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>COFFEEGADO Work Order Summary</h1>
+
+  <div class="info-group">
+    <h2>Work Order Information</h2>
+    <p><strong>W.O. #:</strong> <span id="wo_number"></span></p>
+    <p><strong>Date:</strong> <span id="wo_date"></span></p>
+    <p><strong>Requested By:</strong> <span id="requested_by"></span></p>
+    <p><strong>Customer ID:</strong> <span id="customer_id"></span></p>
+    <p><strong>Department:</strong> <span id="department"></span></p>
+    <p><strong>Job Description:</strong> <span id="job_description"></span></p>
+  </div>
+
+  <div class="info-group">
+    <h2>Billing Information</h2>
+    <p><strong>Name:</strong> <span id="bill_name"></span></p>
+    <p><strong>Company:</strong> <span id="bill_company"></span></p>
+    <p><strong>Address:</strong> <span id="bill_address"></span></p>
+    <p><strong>City/State ZIP:</strong> <span id="bill_city_state_zip"></span></p>
+    <p><strong>Phone:</strong> <span id="bill_phone"></span></p>
+  </div>
+
+  <div class="info-group">
+    <h2>Shipping Information</h2>
+    <p><strong>Name:</strong> <span id="ship_name"></span></p>
+    <p><strong>Company:</strong> <span id="ship_company"></span></p>
+    <p><strong>Address:</strong> <span id="ship_address"></span></p>
+    <p><strong>City/State ZIP:</strong> <span id="ship_city_state_zip"></span></p>
+    <p><strong>Phone:</strong> <span id="ship_phone"></span></p>
+  </div>
+
+  <div class="info-group">
+    <h2>Ordered Items</h2>
+    <table id="order_table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Subtotal</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+      <tfoot>
+        <tr class="total-row">
+          <td colspan="3">Total</td>
+          <td id="grand_total">$0.00</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+
+  <div class="info-group">
+    <h2>Additional Information</h2>
+    <p><strong>Comments:</strong> <span id="comments"></span></p>
+    <p><strong>Signature:</strong> <span id="signature"></span></p>
+    <p><strong>Completed Date:</strong> <span id="completed_date"></span></p>
+    <p><strong>Due Date:</strong> <span id="due_date"></span></p>
+  </div>
+
+  <script>
+  <form action="work_order_details.php" method="get">
+
+    const params = new URLSearchParams(window.location.search);
+
+    function set(id, key) {
+      document.getElementById(id).textContent = params.get(key) || "-";
+    }
+
+    const fields = [
+      "wo_number", "wo_date", "requested_by", "customer_id", "department", "job_description",
+      "bill_name", "bill_company", "bill_address", "bill_city_state_zip", "bill_phone",
+      "ship_name", "ship_company", "ship_address", "ship_city_state_zip", "ship_phone",
+      "comments", "signature", "completed_date", "due_date"
+    ];
+    fields.forEach(f => set(f, f));
+
+    const prices = {
+      "Espresso": 3.50,
+      "Matcha Latte": 4.50,
+      "Cappuccino": 4.50,
+      "Mocha": 5.00,
+      "Iced Coffee": 4.50,
+      "Muffin": 2.75,
+      "Croissant": 3.25,
+      "Cheesecake": 5.50,
+      "Americano": 3.00,
+      "Black Americano": 4.00
+    };
+
+    const qtyFields = {
+      "Espresso": "qty_espresso",
+      "Matcha Latte": "qty_latte",
+      "Cappuccino": "qty_cappuccino",
+      "Mocha": "qty_mocha",
+      "Iced Coffee": "qty_iced",
+      "Muffin": "qty_muffin",
+      "Croissant": "qty_croissant",
+      "Cheesecake": "qty_cheesecake",
+      "Americano": "qty_americano",
+      "Black Americano": "qty_flat_white"
+    };
+
+    let tableBody = document.querySelector("#order_table tbody");
+    let grandTotal = 0;
+
+    for (const [item, field] of Object.entries(qtyFields)) {
+      let qty = parseInt(params.get(field));
+      if (!isNaN(qty) && qty > 0) {
+        let price = prices[item];
+        let subtotal = qty * price;
+        grandTotal += subtotal;
+
+        let row = document.createElement("tr");
+        row.innerHTML = `
+          <td>${item}</td>
+          <td>${qty}</td>
+          <td>$${price.toFixed(2)}</td>
+          <td>$${subtotal.toFixed(2)}</td>
+        `;
+        tableBody.appendChild(row);
+      }
+    }
+
+    document.getElementById("grand_total").textContent = "$" + grandTotal.toFixed(2);
+  </script>
+
+</body>
+</html>
