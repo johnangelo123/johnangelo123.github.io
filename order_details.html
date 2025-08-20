@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Order Details - COFFEEGADO</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Free Website Template" name="keywords">
+    <meta content="Free Website Template" name="description">
+
+    <!-- Favicon -->
+    <link href="img/favicon.ico" rel="icon">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@200;400&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> 
+
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+    <!-- Libraries Stylesheet -->
+    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+
+    <!-- Customized Bootstrap Stylesheet -->
+    <link href="css/style.css" rel="stylesheet">
+    
+    <style>
+        .order-container {
+            background-color: rgba(41, 24, 20, 0.95);
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 50px;
+            margin-bottom: 50px;
+            color: white;
+        }
+        .order-header {
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .order-total {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-align: right;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 2px solid rgba(255, 255, 255, 0.1);
+        }
+        .status-pending {
+            color: #ffcc00;
+        }
+        .status-completed {
+            color: #4CAF50;
+        }
+        .item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-right: 15px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar Start -->
+    <div class="container-fluid p-0 nav-bar">
+        <nav class="navbar navbar-expand-lg bg-none navbar-dark py-3">
+            <a href="index_with_firebase.html" class="navbar-brand px-lg-4 m-0">
+                <h1 class="m-0 display-4 text-uppercase text-white">COFFEEGADO</h1>
+            </a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto p-4">
+                    <a href="index_with_firebase.html" class="nav-item nav-link">Home</a>
+                    <a href="about.html" class="nav-item nav-link">About</a>
+                    <a href="service.html" class="nav-item nav-link">Service</a>
+                    <a href="menu.html" class="nav-item nav-link">Menu</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
+                        <div class="dropdown-menu text-capitalize">
+                            <a href="reservation.html" class="dropdown-item">Reservation</a>
+                            <a href="testimonial.html" class="dropdown-item">Testimonial</a>
+                        </div>
+                    </div>
+                    <a href="contact.html" class="nav-item nav-link">Contact</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <!-- Navbar End -->
+
+    <!-- Order Details Start -->
+    <div class="container">
+        <div class="order-container">
+            <div class="order-header">
+                <h2 class="text-primary">Your Order Details</h2>
+                <p id="order-status" class="status-pending">Status: Loading...</p>
+                <p id="order-date">Order Date: Loading...</p>
+                <p id="order-id">Order #: Loading...</p>
+            </div>
+            
+            <div id="customer-info" class="mb-4">
+                <h4>Customer Information</h4>
+                <p id="customer-name">Loading...</p>
+                <p id="customer-contact">Loading...</p>
+            </div>
+            
+            <h4>Items Ordered</h4>
+            <div id="order-items">
+                <!-- Items will be inserted here by JavaScript -->
+                <p>Loading your items...</p>
+            </div>
+            
+            <div class="order-total">
+                Total: <span id="order-total-amount">$0.00</span>
+            </div>
+            
+            <div class="text-center mt-4">
+                <a href="index_with_firebase.html" class="btn btn-primary">Back to Home</a>
+                <button id="print-order" class="btn btn-secondary ml-2">Print Order</button>
+            </div>
+        </div>
+    </div>
+    <!-- Order Details End -->
+
+    <!-- Footer Start -->
+    <div class="container-fluid footer text-white mt-5 pt-5 px-0 position-relative overlay-top">
+        <div class="row mx-0 pt-5 px-sm-3 px-lg-5 mt-4">
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Get In Touch</h4>
+                <p><i class="fa fa-map-marker-alt mr-2"></i>CHMSU ALIJIS, Bacolod City, Philippines</p>
+                <p><i class="fa fa-phone-alt mr-2"></i>+012 345 67890</p>
+                <p class="m-0"><i class="fa fa-envelope mr-2"></i>coffeegadokami@gmail.com</p>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Follow Us</h4>
+                <p>Join us on our journey as we brew the best coffee in town. Follow us for updates, exclusive offers, and all things coffee!</p>
+                <div class="d-flex justify-content-start">
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a class="btn btn-lg btn-outline-light btn-lg-square" href="#"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Open Hours</h4>
+                <div>
+                    <h6 class="text-white text-uppercase">Monday - Friday</h6>
+                    <p>8.00 AM - 8.00 PM</p>
+                    <h6 class="text-white text-uppercase">Saturday - Sunday</h6>
+                    <p>2.00 PM - 8.00 PM</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 mb-5">
+                <h4 class="text-white text-uppercase mb-4" style="letter-spacing: 3px;">Newsletter</h4>
+                <p>Stay in the loop with the latest coffee trends, exclusive offers, and exciting updates. Subscribe now and get a dose of fresh news directly to your inbox!</p>
+                <div class="w-100">
+                    <div class="input-group">
+                        <input type="text" class="form-control border-light" style="padding: 25px;" placeholder="Your Email">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary font-weight-bold px-3">Sign Up</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid text-center text-white border-top mt-4 py-4 px-sm-3 px-md-5" style="border-color: rgba(256, 256, 256, .1) !important;">
+            <p class="mb-2 text-white">Copyright &copy; <a class="font-weight-bold" href="#">Domain</a>. All Rights Reserved.</a></p>
+            <p class="m-0 text-white">Designed by <a class="font-weight-bold" href="https://htmlcodex.com">HTML Codex</a></p>
+        </div>
+    </div>
+    <!-- Footer End -->
+
+    <!-- Back to Top -->
+    <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+
+    <!-- JavaScript Libraries -->
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="lib/easing/easing.min.js"></script>
+    <script src="lib/waypoints/waypoints.min.js"></script>
+    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+    <script src="lib/tempusdominus/js/moment.min.js"></script>
+    <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDZIOFRSWpGAisoVoV-b1X8ToS_6C377Kk",
+            authDomain: "coffeegado-db554.firebaseapp.com",
+            projectId: "coffeegado-db554",
+            storageBucket: "coffeegado-db554.firebasestorage.app",
+            messagingSenderId: "919655033852",
+            appId: "1:919655033852:web:0fa7302415b91e8b9b6079",
+            measurementId: "G-KD3LVNYYKN",
+            databaseURL: "https://coffeegado-db554-default-rtdb.firebaseio.com/"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Get order ID from session storage
+        const orderId = sessionStorage.getItem('lastOrderId');
+        
+        if (!orderId) {
+            window.location.href = 'index_with_firebase.html';
+        }
+
+        // Fetch order details from Firebase
+        get(ref(database, 'orders/' + orderId)).then((snapshot) => {
+            if (snapshot.exists()) {
+                const order = snapshot.val();
+                
+                // Display order information
+                document.getElementById('order-id').textContent = `Order #: ${orderId}`;
+                document.getElementById('order-date').textContent = `Order Date: ${new Date(order.timestamp).toLocaleString()}`;
+                document.getElementById('order-status').textContent = `Status: ${order.status}`;
+                document.getElementById('order-status').className = order.status === 'completed' ? 'status-completed' : 'status-pending';
+                
+                // Display customer information
+                document.getElementById('customer-name').textContent = `${order.bill_name || ''} ${order.bill_company ? 'from ' + order.bill_company : ''}`;
+                document.getElementById('customer-contact').textContent = `${order.bill_phone || 'No phone provided'}`;
+                
+                // Display ordered items
+                const itemsContainer = document.getElementById('order-items');
+                itemsContainer.innerHTML = '';
+                
+                if (order.items) {
+                    Object.entries(order.items).forEach(([itemName, itemDetails]) => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'order-item';
+                        
+                        itemDiv.innerHTML = `
+                            <div>
+                                <strong>${itemName}</strong>
+                                <div>Qty: ${itemDetails.quantity} × $${itemDetails.price.toFixed(2)}</div>
+                            </div>
+                            <div>$${(itemDetails.quantity * itemDetails.price).toFixed(2)}</div>
+                        `;
+                        
+                        itemsContainer.appendChild(itemDiv);
+                    });
+                }
+                
+                // Display total
+                document.getElementById('order-total-amount').textContent = `$${order.total?.toFixed(2) || '0.00'}`;
+            } else {
+                alert('Order not found!');
+                window.location.href = 'index_with_firebase.html';
+            }
+        }).catch((error) => {
+            console.error("Error getting order: ", error);
+            alert('Error loading order details.');
+        });
+
+        // Print button functionality
+        document.getElementById('print-order').addEventListener('click', () => {
+            window.print();
+        });
+    </script>
+</body>
+</html>
